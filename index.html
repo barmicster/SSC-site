@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Sight Consulting</title>
+  <link rel="stylesheet" href="style.css">
+  <script>
+  // Responsive nav toggle
+  function toggleMenu() {
+    const nav = document.querySelector('nav');
+    nav.classList.toggle('show');
+  }
+
+  // Smooth close nav on link click and fade-in animation
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('nav a').forEach(link => {
+      link.addEventListener('click', () => {
+        const nav = document.querySelector('nav');
+        if (window.innerWidth <= 768) {
+          nav.classList.remove('show');
+        }
+      });
+    });
+
+    // Scroll-triggered fade-in
+    const faders = document.querySelectorAll('.fade-in');
+    const options = { threshold: 0.1 };
+    const observer = new IntersectionObserver(function (entries, observer) {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, options);
+
+    faders.forEach(fader => {
+      observer.observe(fader);
+    });
+  });
+</script>
+</head>
+<body>
+  <!-- Header -->
+  <header class="hero">
+    <div class="logo-text">
+      <div class="logo">SMART SIGHT <span>CONSULTING</span></div>
+          <p class="tagline">From foresight to hindsight — we bring clarity at every stage.</p>
+          <a href="#contact" class="cta-button">Get Started</a>
+    </div>
+  </header>
+
+  <!-- Hero Section 
+  <section class="hero" id="home">
+    <div class="hero-content">
+      <h1>Smart Sight Consulting</h1>
+      <p>From foresight to hindsight — we bring clarity at every stage.</p>
+      <a href="#contact" class="cta-button">Get Started</a>
+    </div>
+  </section>
+-->
+
+  <!-- Process Section -->
+  <section id="process" class="fade-in">
+      <h2>About Us</h2>
+      <p>Seasonal retail, simplified. From concept to install—we handle procurement, merchandising, marketing, and execution so your team can focus on results.</p>
+  </section>
+
+  <!-- Services -->
+  <section class="services" id="services">
+  <div class="container">
+    <h2>What We Do</h2>
+    <div class="service-grid">
+      
+      <div class="service">
+        <h3>Procurement & Merchandising</h3>
+        <p>We source, organize, and prepare merchandise to align with your seasonal strategy and campaign goals.</p>
+      </div>
+
+      <div class="service">
+        <h3>Campaign Planning & Marketing</h3>
+        <p>We develop cohesive seasonal campaigns—from creative direction to marketing materials and lookbooks.</p>
+      </div>
+
+      <div class="service">
+        <h3>Team Coordination</h3>
+        <p>Our team manages logistics and communication to ensure seamless execution across all departments.</p>
+      </div>
+
+      <div class="service full-width">
+        <h3>Installation Execution</h3>
+        <p>We bring your seasonal vision to life through professional, on-time installations and in-store setup.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+  <!-- Testimonials -->
+  <section class="testimonials">
+    <h2>Our Portfolio</h2>
+      <div class="gallery-container">
+  <button class="nav left" onclick="scrollGallery(-1)">&#10094;</button>
+  <div class="gallery" id="gallery">
+    
+      <img src=img1.jpg alt="image 1" />
+      <img src=img2.jpg alt="image 2" />
+      <img src=img3.jpg alt="image 3" />
+      <img src=img4.jpg alt="image 4" />
+      <img src=img5.jpg alt="image 5" />
+      <img src=img6.jpg alt="image 6" />
+      <img src=img7.jpg alt="image 7" />
+      <img src=img8.jpg alt="image 8" />
+      <img src=img9.jpg alt="image 9" />
+    
+    <!-- Add more images as needed -->
+  </div>
+  <button class="nav right" onclick="scrollGallery(1)">&#10095;</button>
+</div>
+  </section>
+
+  <!-- Contact -->
+  <section class="contact" id="contact">
+    <div class="container">
+      <h2>Let’s Work Together</h2>
+      <form id="contactForm" action="https://formspree.io/f/xrbqkqpy" method="POST">
+      <input type="text" name="name" placeholder="Your Name" required>
+      <input type="email" name="_replyto" placeholder="Your Email" required>
+      <textarea name="message" placeholder="Your Message" required></textarea>
+      <button type="submit">Send Message</button>
+    </form>
+
+    <div id="formResponse" style="display:none;">Thank you! Redirecting...</div>
+  </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>&copy; 2025 Smart Sight Consulting. All rights reserved.</p>
+    <div class="container">
+    <p>Powered by</p>
+    <a href="https://flowablesolutions.com" target="_blank">
+      <img src=fspic.png alt="Flowable Solutions Logo" style="height: 20px;">
+    </a>
+  </div>
+  </footer>
+  <script src="gallery.js"></script>
+  <script>
+  document.getElementById("contactForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    const form = e.target;
+    const data = new FormData(form);
+
+    fetch(form.action, {
+      method: form.method,
+      body: data,
+      headers: {
+        'Accept': 'application/json'
+      }
+    }).then(response => {
+      if (response.ok) {
+        form.reset();
+        document.getElementById("formResponse").style.display = "block";
+        setTimeout(() => {
+          window.location.href = "#home"; // or '/' or '/index.html'
+        }, 2000);
+      } else {
+        alert("Something went wrong. Please try again.");
+      }
+    });
+  });
+</script>
+</body>
+</html>
